@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10090d">
+  <meta name="description" content="Queen of Shadows — gothic AI music studio">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Queen of Shadows AI Studio</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Queen of Shadows home"><span class="brand-mark">♛</span><span>QUEEN <i>OF</i> SHADOWS<small>AI MUSIC STUDIO</small></span></a>
+    <div class="top-actions">
+      <button id="langToggle" class="icon-button" aria-label="Switch language">EN</button>
+      <button id="installBtn" class="small-button" hidden>＋ Install</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="eyebrow">ТВОЯ ТЁМНАЯ МУЗЫКАЛЬНАЯ ВСЕЛЕННАЯ</p>
+        <h1 data-i18n="heroTitle">Создавай музыку.<br><em>Повелевай тенями.</em></h1>
+        <p class="hero-sub" data-i18n="heroSub">Песни, тексты и обложки — в одном готическом пространстве.</p>
+        <button class="primary-button" data-go="music" data-i18n="startCreating">Начать создавать <span>↗</span></button>
+      </div>
+      <div class="hero-art" aria-label="Gothic moon artwork">
+        <div class="moon"></div><div class="castle">♜</div><div class="rose">✥</div>
+        <div class="art-caption">DARKNESS<br><b>IS YOURS</b></div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Studio navigation">
+      <button class="tab active" data-tab="music">♫ <span data-i18n="music">Музыка</span></button>
+      <button class="tab" data-tab="lyrics">✎ <span data-i18n="lyrics">Тексты</span></button>
+      <button class="tab" data-tab="covers">✧ <span data-i18n="covers">Обложки</span></button>
+      <button class="tab" data-tab="library">▤ <span data-i18n="library">Библиотека</span></button>
+    </nav>
+
+    <section id="music" class="panel active">
+      <div class="section-heading"><div><p class="eyebrow">01 / SOUND DESIGN</p><h2 data-i18n="musicTitle">Создать композицию</h2></div><span class="status-pill">DARK EDITION</span></div>
+      <form id="musicForm" class="studio-card">
+        <label><span data-i18n="trackName">Название композиции</span><input id="trackName" value="The Queen of Shadows" maxlength="80"></label>
+        <div class="two-col">
+          <label><span data-i18n="genre">Жанр</span><select id="genre"><option>Darkwave</option><option>Gothic Metal</option><option>Heavy Metal</option><option>Rock</option></select></label>
+          <label><span data-i18n="vocal">Вокал</span><select id="vocal"><option value="Женский вокал">Женский вокал</option><option value="Мужской вокал">Мужской вокал</option><option value="Женский и мужской дуэт">Женский и мужской дуэт</option><option value="Без вокала">Без вокала</option></select></label>
+        </div>
+        <label><span data-i18n="songIdea">Опиши звучание и идею песни</span><textarea id="songIdea" rows="4">Мрачная готическая песня о королеве теней, ночи и внутренней силе. Глубокие синтезаторы, пульсирующий бас, атмосферные ударные и сильный женский вокал.</textarea></label>
+        <label><span data-i18n="lyricsOptional">Текст песни (необязательно)</span><textarea id="songLyrics" rows="3" placeholder="Вставь готовый текст или оставь пустым..."></textarea></label>
+        <button id="generateButton" class="primary-button full" type="submit" data-i18n="generateTrack">Создать песню ♫</button>
+        <p class="hint" data-i18n="audioHint">Песня создаётся искусственным интеллектом. После генерации её можно будет слушать здесь и скачать в MP3.</p>
+      </form>
+      <div id="generationStatus" class="result-card" hidden aria-live="polite">
+        <h3 id="generationTitle">Готовим твою песню…</h3>
+        <p id="generationMessage" class="hint">Генерация может занять несколько минут. Не закрывай страницу.</p>
+      </div>
+
+      <div class="studio-card player-card">
+        <div>
+          <p class="eyebrow">05 / AUDIO PLAYER</p>
+          <h3 data-i18n="playerTitle">Твой готовый трек</h3>
+          <p class="hint" data-i18n="playerHint">Здесь появится песня, созданная по твоему тексту и настройкам.</p>
+        </div>
+        <div id="audioPlayerArea" class="audio-player-area" hidden>
+          <div class="audio-track-info">
+            <span class="audio-disc">♫</span>
+            <div><strong id="audioFileName">My song</strong><small data-i18n="readyToPlay">Готово к прослушиванию</small></div>
+          </div>
+          <audio id="audioPlayer" controls playsinline preload="auto"></audio>
+          <p id="audioStatus" class="hint" aria-live="polite">Песня будет готова здесь.</p>
+          <a id="downloadAudio" class="secondary-button download-button" download="queen-of-shadows.mp3" data-i18n="downloadAudio">↓ Скачать MP3</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="lyrics" class="panel">
+      <div class="section-heading"><div><p class="eyebrow">02 / WORDS & POETRY</p><h2 data-i18n="lyricsTitle">Мастерская текстов</h2></div></div>
+      <div class="studio-card">
+        <label><span data-i18n="lyricTheme">Тема песни</span><textarea id="lyricTheme" rows="3" placeholder="Например: свобода после долгой тьмы..."></textarea></label>
+        <div class="two-col">
+          <label><span data-i18n="lyricGenre">Стиль</span><select id="lyricGenre"><option>Darkwave</option><option>Gothic Metal</option><option>Heavy Metal</option><option>Rock</option></select></label>
+          <label><span data-i18n="lyricLang">Язык текста</span><select id="lyricLang"><option value="Русский">Русский</option><option value="English">English</option></select></label>
+        </div>
+        <button id="makeLyrics" class="primary-button full" data-i18n="makeLyrics">Создать черновик текста</button>
+        <p class="hint" data-i18n="lyricsHint">Встроенный черновик — отправная точка. Для уникальной AI-генерации подключи текстовую модель/API.</p>
+        <label><span data-i18n="yourLyrics">Твой текст</span><textarea id="lyricsOutput" rows="13" placeholder="Текст появится здесь. Его можно свободно редактировать."></textarea></label>
+        <button id="saveLyrics" class="secondary-button" data-i18n="saveLyrics">Сохранить текст в библиотеку</button>
+      </div>
+    </section>
+
+    <section id="covers" class="panel">
+      <div class="section-heading"><div><p class="eyebrow">03 / VISUAL IDENTITY</p><h2 data-i18n="coversTitle">Обложка альбома</h2></div></div>
+      <div class="studio-card">
+        <label><span data-i18n="albumTitle">Название релиза</span><input id="albumTitle" value="The Queen of Shadows"></label>
+        <label><span data-i18n="coverIdea">Описание образа</span><textarea id="coverIdea" rows="3">Готическая королева в чёрном бархате, красная луна, старинный замок и чёрные розы.</textarea></label>
+        <div class="cover-preview" id="coverPreview"><div class="cover-moon"></div><div class="cover-ornament">♛</div><div class="cover-title" id="coverTitlePreview">THE QUEEN<br>OF SHADOWS</div><div class="cover-subtitle">DARKWAVE • 2026</div></div>
+        <button id="updateCover" class="secondary-button" data-i18n="updateCover">Обновить надпись на обложке</button>
+        <button id="coverPrompt" class="primary-button full" data-i18n="makeCoverPrompt">Подготовить промпт для AI-обложки</button>
+        <p id="coverPromptResult" class="hint"></p>
+      </div>
+    </section>
+
+    <section id="library" class="panel">
+      <div class="section-heading"><div><p class="eyebrow">04 / YOUR ARCHIVE</p><h2 data-i18n="libraryTitle">Моя библиотека</h2></div><button id="clearLibrary" class="text-button" data-i18n="clear">Очистить</button></div>
+      <div id="libraryList" class="library-list"><p class="empty-state" data-i18n="emptyLibrary">Пока здесь пусто. Создай первый проект.</p></div>
+    </section>
+  </main>
+
+  <footer><span>♛ QUEEN OF SHADOWS</span><span data-i18n="footer">Создано в темноте. Звучит по-твоему.</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

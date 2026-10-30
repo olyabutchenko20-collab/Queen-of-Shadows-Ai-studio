@@ -1,0 +1,12 @@
+{
+  "name": "queen-of-shadows-ai-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gothic AI music studio powered by Google Lyria 3.5",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
